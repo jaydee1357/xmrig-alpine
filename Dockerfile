@@ -32,5 +32,7 @@ ENV DAYS				Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday
 
 COPY script.sh .
 
+RUN chmod +x ./script.sh
+
 # Set entrypoint
 ENTRYPOINT ./script.sh cryptonight $POOL_URL $POOL_USER $POOL_PW $MAX_CPU $USE_SCHEDULER $START_TIME $STOP_TIME $DAYS
