@@ -18,7 +18,7 @@ RUN   apk --no-cache upgrade && \
         build-base \
         cmake \
         git
-        
+
 USER miner
 
 ENV POOL_URL    		POOL_URL
@@ -31,8 +31,6 @@ ENV STOP_TIME			0600
 ENV DAYS				Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday
 
 COPY script.sh .
-
-RUN ["chmod", "+x", "./script.sh"]
 
 # Set entrypoint
 ENTRYPOINT ./script.sh cryptonight $POOL_URL $POOL_USER $POOL_PW $MAX_CPU $USE_SCHEDULER $START_TIME $STOP_TIME $DAYS
