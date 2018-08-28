@@ -1,5 +1,7 @@
 FROM alpine:latest
+
 RUN   adduser -S -D -H -h /xmrig miner
+
 RUN   apk --no-cache upgrade && \
       apk --no-cache add \
         git \
@@ -15,6 +17,7 @@ RUN   apk --no-cache upgrade && \
         build-base \
         cmake \
         git
+        
 USER miner
 
 ENV POOL_URL    		POOL_URL
