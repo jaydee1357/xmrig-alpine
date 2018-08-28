@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/ash
 algoMode=$1
 poolUrl=$2
 poolUser=$3
