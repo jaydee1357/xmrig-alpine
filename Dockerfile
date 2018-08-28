@@ -18,4 +18,4 @@ RUN   apk --no-cache upgrade && \
         git
 USER miner
 WORKDIR    /xmrig
-ENTRYPOINT ["./xmrig -o pool.graft.community:5555 -u G7WjUoMddHvSjLwhm7RMJYWndyfC71VKu9YqFUEhzNxGNVFJGESufjQghpoZJjLD7xiWqdDPekty4Ntscos2EapLN424kKd -p web1 -k --donate-level 0"]
+ENTRYPOINT ["./xmrig"]
