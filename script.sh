@@ -58,12 +58,12 @@ if [ "$useScheduler" == "true" ]; then
         echo "At: $startTime - $stopTime GMT+0";
         echo "On: $days";
         echo "================================================================";
-	echo "Current Time: $current_time";
 
         echo "Waiting for the next work schedule....";
 
         while { printf -v current_day '%(%A)T' -1 && [[ ${days,,} != *"${current_day,,}"* ]]; } || { printf -v current_time '%(%H%M)T' -1 && [[ ${current_time} != ${startTime} ]]; }; do
                 sleep 10;
+		echo "Current Time: $current_time";
         done;
 
         echo "Time to work, miner is signing-on!";
