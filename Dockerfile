@@ -2,13 +2,15 @@ FROM alpine:latest
 
 RUN adduser -S -D -H -h /xmrig miner 
 
-RUN apk --no-cache upgrade && \
+RUN   apk --no-cache update && \
+      apk --no-cache upgrade 
       apk --no-cache add \
       git \
       cmake \
       libuv-dev \
       libmicrohttpd-dev \
       bash \
+      tzdata \
       build-base && \
       git clone https://github.com/xmrig/xmrig 
 
@@ -26,6 +28,9 @@ RUN   cd xmrig && \
 COPY script.sh /xmrig/script.sh 
 
 RUN chmod +x /xmrig/script.sh 
+
+RUN echo America/Toronto >/etc/timezone && \
+    dpkg-reconfigure -f noninteractive tzdata
 
 USER miner 
 
