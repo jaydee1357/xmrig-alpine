@@ -3,7 +3,7 @@ FROM alpine:latest
 RUN adduser -S -D -H -h /xmrig miner 
 
 RUN   apk --no-cache update && \
-      apk --no-cache upgrade \
+      apk --no-cache upgrade && \
       apk --no-cache add \
       git \
       cmake \
@@ -29,9 +29,6 @@ COPY script.sh /xmrig/script.sh
 
 RUN chmod +x /xmrig/script.sh 
 
-RUN echo America/Toronto >/etc/timezone && \
-    dpkg-reconfigure -f noninteractive tzdata
-
 USER miner 
 
 WORKDIR /xmrig 
@@ -44,6 +41,7 @@ ENV USE_SCHEDULER false
 ENV START_TIME 2100 
 ENV STOP_TIME 0600 
 ENV DAYS Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday
+ENV TZ America/Toronto
 
 # Set entrypoint
 ENTRYPOINT ./script.sh $ALGO_MODE $POOL_URL $POOL_USER $POOL_PW $MAX_CPU $USE_SCHEDULER $START_TIME $STOP_TIME $DAYS
