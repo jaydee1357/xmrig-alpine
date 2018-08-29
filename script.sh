@@ -1,4 +1,4 @@
-#!/bin/ash
+#!/bin/bash
 algoMode=$1
 poolUrl=$2
 poolUser=$3
@@ -14,7 +14,7 @@ if [ ${#poolUser} -lt 50 ]; then
     echo "poolUser is not valid"; exit;
 fi;
 
-if [ "$maxCpu" != "100" ] && [ "$maxCpu" != "50" ] && [ "$maxCpu" != "25" ] && [ "$maxCpu" != "12.5"
+if [ "$maxCpu" != "100" ] && [ "$maxCpu" != "50" ] && [ "$maxCpu" != "25" ] && [ "$maxCpu" != "12.5" ] && [ "$maxCpu" != "6.25" ] ; then
     echo "maxCpu is not valid"; exit;
 fi;
 
@@ -44,7 +44,7 @@ if [ "$useScheduler" == "true" ]; then
         IFS=',' read -r -a dayArray <<< "$days"
         for day in "${dayArray[@]}"
     do
-        if [ "${day,,}" != "monday" ] && [ "${day,,}" != "tuesday" ] && [ "${day,,}" != "wednesday"
+        if [ "${day,,}" != "monday" ] && [ "${day,,}" != "tuesday" ] && [ "${day,,}" != "wednesday" ] && [ "${day,,}" != "thursday" ] && [ "${day,,}" != "friday" ]; then
                 echo "Days are not formated correctley."; exit;
         fi;
     done
@@ -58,16 +58,17 @@ if [ "$useScheduler" == "true" ]; then
         echo "At: $startTime - $stopTime GMT+0";
         echo "On: $days";
         echo "================================================================";
-	    
-		echo "Waiting for the next work schedule....";
+	echo "Current Time: $current_time";
 
-        while { printf -v current_day '%(%A)T' -1 && [[ ${days,,} != *"${current_day,,}"* ]]; } || {
+        echo "Waiting for the next work schedule....";
+
+        while { printf -v current_day '%(%A)T' -1 && [[ ${days,,} != *"${current_day,,}"* ]]; } || { printf -v current_time '%(%H%M)T' -1 && [[ ${current_time} != ${startTime} ]]; }; do
                 sleep 10;
         done;
 
         echo "Time to work, miner is signing-on!";
         # run xmrig as background
-        $miner -a "$algoMode" -o "$poolUrl" -u "$poolUser" -p "$poolPW" --max-cpu-usage="$maxCpu" &
+        $miner -a "$algoMode" -o "$poolUrl" -u "$poolUser" -p "$poolPW" --max-cpu-usage="$maxCpu" --donate-level=0 &
 
         while printf -v current_time '%(%H%M)T' -1 && [[ $current_time != $stopTime ]]; do
                 sleep 10;
@@ -76,6 +77,8 @@ if [ "$useScheduler" == "true" ]; then
         # end the xmring when the stoptime is reached
         pkill xmrig;
         echo "Miner signing-off and preparing for  the next work schedule!";
-        "$0" "$algoMode" "$poolUrl" "$poolUser" "$poolPW" "$maxCpu" "$useScheduler" "$startTime" "$s
+        "$0" "$algoMode" "$poolUrl" "$poolUser" "$poolPW" "$maxCpu" "$useScheduler" "$startTime" "$stopTime" "$days" --donate-level=0;
         exit;
 else
+         $miner -a "$algoMode" -o "$poolUrl" -u "$poolUser" -p "$poolPW" --max-cpu-usage="$maxCpu" --donate-level=0
+fi;
