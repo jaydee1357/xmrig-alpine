@@ -44,7 +44,7 @@ if [ "$useScheduler" == "true" ]; then
         IFS=',' read -r -a dayArray <<< "$days"
         for day in "${dayArray[@]}"
     do
-        if [ "${day,,}" != "monday" ] && [ "${day,,}" != "tuesday" ] && [ "${day,,}" != "wednesday" ] && [ "${day,,}" != "thursday" ] && [ "${day,,}" != "friday" ]; then
+        if [ "${day,,}" != "monday" ] && [ "${day,,}" != "tuesday" ] && [ "${day,,}" != "wednesday" ] && [ "${day,,}" != "thursday" ] && [ "${day,,}" != "friday" ] && [ "${day,,}" != "saturday" ] && [ "${day,,}" != "sunday" ]; then
                 echo "Days are not formated correctley."; exit;
         fi;
     done
