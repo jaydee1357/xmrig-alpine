@@ -51,9 +51,6 @@ if [ "$useScheduler" == "true" ]; then
 
         # wait for starttime
         echo "================================================================";
-        echo "Cryptonote mining container based on xmrig";
-        echo "with task scheduling mod by MasterRoshi";
-        echo  "";
         echo "Scheduler information";
         echo "At: $startTime - $stopTime GMT+0";
         echo "On: $days";
