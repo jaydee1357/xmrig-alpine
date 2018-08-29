@@ -52,7 +52,7 @@ if [ "$useScheduler" == "true" ]; then
         # wait for starttime
         echo "================================================================";
         echo "Scheduler information";
-        echo "At: $startTime - $stopTime GMT+0";
+        echo "At: $startTime - $stopTime";
         echo "On: $days";
         echo "================================================================";
 
