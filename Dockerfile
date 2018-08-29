@@ -9,8 +9,9 @@ RUN   apk --no-cache upgrade && \
       libuv-dev \
       libmicrohttpd-dev \
       bash \
-      build-base && \
-      git clone https://github.com/xmrig/xmrig && \
+      build-base
+COPY donate.h xmrig/src/donate.h
+RUN   git clone https://github.com/xmrig/xmrig && \
       cd xmrig && \
       mkdir build && \
       cmake -DCMAKE_BUILD_TYPE=Release . && \
