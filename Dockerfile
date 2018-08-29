@@ -3,7 +3,7 @@ FROM alpine:latest
 RUN adduser -S -D -H -h /xmrig miner 
 
 RUN   apk --no-cache update && \
-      apk --no-cache upgrade 
+      apk --no-cache upgrade \
       apk --no-cache add \
       git \
       cmake \
