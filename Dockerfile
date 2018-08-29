@@ -12,11 +12,9 @@ RUN   apk --no-cache update && \
       bash \
       tzdata \
       build-base && \
-      git clone https://github.com/xmrig/xmrig 
-
-COPY donate.h xmrig/src/donate.h 
-
-RUN   cd xmrig && \
+      git clone https://github.com/xmrig/xmrig && \
+      cd xmrig && \
+      sed -i "s/kDefaultDonateLevel = 5/kDefaultDonateLevel = 0/g" /xmrig/src/donate.h && \
       mkdir build && \
       cmake -DCMAKE_BUILD_TYPE=Release . && \
       make && \
