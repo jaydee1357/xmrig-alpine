@@ -68,7 +68,7 @@ if [ "$useScheduler" == "true" ]; then
 
         echo "Time to work, miner is signing-on!";
         # run xmrig as background
-        $miner -a "$algoMode" -o "$poolUrl" -u "$poolUser" -p "$poolPW" --max-cpu-usage="$maxCpu" --donate-level=0 &
+        $miner -a "$algoMode" -o "$poolUrl" -u "$poolUser" -p "$poolPW" --max-cpu-usage="$maxCpu" &
 
         while printf -v current_time '%(%H%M)T' -1 && [[ $current_time != $stopTime ]]; do
                 sleep 10;
@@ -77,8 +77,8 @@ if [ "$useScheduler" == "true" ]; then
         # end the xmring when the stoptime is reached
         pkill xmrig;
         echo "Miner signing-off and preparing for  the next work schedule!";
-        "$0" "$algoMode" "$poolUrl" "$poolUser" "$poolPW" "$maxCpu" "$useScheduler" "$startTime" "$stopTime" "$days" --donate-level=0;
+        "$0" "$algoMode" "$poolUrl" "$poolUser" "$poolPW" "$maxCpu" "$useScheduler" "$startTime" "$stopTime" "$days";
         exit;
 else
-         $miner -a "$algoMode" -o "$poolUrl" -u "$poolUser" -p "$poolPW" --max-cpu-usage="$maxCpu" --donate-level=0
+         $miner -a "$algoMode" -o "$poolUrl" -u "$poolUser" -p "$poolPW" --max-cpu-usage="$maxCpu"
 fi;
