@@ -6,16 +6,16 @@ RUN   apk --no-cache update && \
       apk --no-cache upgrade && \
       apk --no-cache add git cmake libuv-dev libmicrohttpd-dev bash tzdata \
       build-base && \
-      git clone https://github.com/xmrig/xmrig && \
-      cd xmrig && \
+      git clone https://github.com/xmrig/xmrig /tmp/xmrig_build && \
+      cd /tmp/xmrig_build && \
       sed -i "s/kDefaultDonateLevel = 5/kDefaultDonateLevel = 0/g" /xmrig/src/donate.h && \
       mkdir build && \
       cmake -DCMAKE_BUILD_TYPE=Release . && \
       make && \
-      apk del \
-      build-base \
-      cmake \
-      git 
+      apk del --purge build-base cmake git && \
+      mkdir /xmrig && \
+      mv /tmp/xmrig_build/xmrig /xmrig && \
+      rm -rf /tmp/*
 
 COPY script.sh /xmrig/script.sh 
 
