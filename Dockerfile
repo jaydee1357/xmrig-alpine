@@ -8,7 +8,7 @@ RUN   apk --no-cache update && \
       build-base && \
       git clone https://github.com/xmrig/xmrig /tmp/xmrig_build && \
       cd /tmp/xmrig_build && \
-      sed -i "s/kDefaultDonateLevel = 5/kDefaultDonateLevel = 0/g" /xmrig/src/donate.h && \
+      sed -i "s/kDefaultDonateLevel = 5/kDefaultDonateLevel = 0/g" /tmp/xmrig_build/src/donate.h && \
       mkdir build && \
       cmake -DCMAKE_BUILD_TYPE=Release . && \
       make && \
